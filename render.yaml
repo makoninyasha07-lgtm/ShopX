@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: shopx-marketplace
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: shopx-db
+          property: connectionString
+      - key: APP_URL
+        sync: false
+      - key: PAYNOW_INTEGRATION_ID
+        sync: false
+      - key: PAYNOW_INTEGRATION_KEY
+        sync: false
+databases:
+  - name: shopx-db
+    plan: free
